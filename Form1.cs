@@ -14,7 +14,7 @@ namespace Journal
         public Form1()
         {
             InitializeComponent();
-        }       
+        }
 
         private async void Form1_Load(object sender, EventArgs e)
         {
@@ -23,7 +23,7 @@ namespace Journal
             DbDataReader sqlReader = null;
             OleDbCommand command = new OleDbCommand("SELECT * FROM [students]", sqlConnection);
             try
-            {                
+            {
                 sqlReader = await command.ExecuteReaderAsync();
                 while (await sqlReader.ReadAsync())
                 {
@@ -71,7 +71,7 @@ namespace Journal
                     sqlReader.Close();
             }
         }
-        
+
         private async void showAllButton_Click(object sender, EventArgs e)
         {
             studentsListBox.Items.Clear();
@@ -109,7 +109,7 @@ namespace Journal
                     sqlReader.Close();
             }
         }
-       
+
         private async void addStudentButton_Click(object sender, EventArgs e)
         {
             sqlConnection = new OleDbConnection(connectionString);
@@ -133,9 +133,9 @@ namespace Journal
                     while (await sqlReader.ReadAsync())
                     {
                         maxid = Convert.ToInt32(sqlReader["ID"]);
-                    }                    
+                    }
                     studentsListBox.Items.Add(nameTextBox.Text + " " + surnameTextBox.Text + " " + classTextBox.Text);
-                    numbersListBox.Items.Add(Convert.ToString(maxid));                    
+                    numbersListBox.Items.Add(Convert.ToString(maxid));
                     command = new OleDbCommand("INSERT INTO [math] ([ID], [Control1], [Control2], [Control3], [Control4])VALUES(@ID, 0, 0, 0, 0)", sqlConnection);
                     command.Parameters.AddWithValue("ID", maxid);
                     await command.ExecuteNonQueryAsync();
@@ -176,7 +176,7 @@ namespace Journal
                 if (!string.IsNullOrEmpty(nameTextBox.Text) && !string.IsNullOrWhiteSpace(nameTextBox.Text) &&
                     !string.IsNullOrEmpty(surnameTextBox.Text) && !string.IsNullOrWhiteSpace(surnameTextBox.Text) &&
                     !string.IsNullOrEmpty(classTextBox.Text) && !string.IsNullOrWhiteSpace(classTextBox.Text) &&
-                    numbersListBox.SelectedItem != null)                {
+                    numbersListBox.SelectedItem != null) {
                     OleDbCommand command = new OleDbCommand("DELETE FROM [students] WHERE [ID] = @ID", sqlConnection);
                     command.Parameters.AddWithValue("ID", numbersListBox.SelectedItem.ToString());
                     await command.ExecuteNonQueryAsync();
@@ -197,13 +197,13 @@ namespace Journal
                         numbersListBox.Items.RemoveAt(studentsListBox.SelectedIndex);
                         studentsListBox.Items.RemoveAt(studentsListBox.SelectedIndex);
                     }
-                    else 
+                    else
                     {
                         studentsListBox.Items.Clear();
                         numbersListBox.Items.Clear();
                         SetSingle();
                     }
-                }                
+                }
                 else
                 {
                     MessageBox.Show("Заполните все поля");
@@ -219,7 +219,7 @@ namespace Journal
                     sqlReader.Close();
             }
         }
-    
+
         private async void studentsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             string[] str = new string[3];
@@ -230,7 +230,7 @@ namespace Journal
                 nameTextBox.Text = str[0];
                 surnameTextBox.Text = str[1];
                 classTextBox.Text = str[2];
-                marksListBox.Items.Clear();                
+                marksListBox.Items.Clear();
                 sqlConnection = new OleDbConnection(connectionString);
                 await sqlConnection.OpenAsync();
                 DbDataReader sqlReader = null;
@@ -314,7 +314,7 @@ namespace Journal
         }
 
         //функция поиска учеников по любым значениям и их сочетаниям
-        private async void searchStudentButton_Click(object sender, EventArgs e) 
+        private async void searchStudentButton_Click(object sender, EventArgs e)
         {
             sqlConnection = new OleDbConnection(connectionString);
             await sqlConnection.OpenAsync();
@@ -638,7 +638,8 @@ namespace Journal
             }
         }
 
-        private  void changeMarksButton_Click(object sender, EventArgs e)
+        //попробовать привести в асинхронный вид
+        private void changeMarksButton_Click(object sender, EventArgs e)
         {
             string[] str = new string[5];
             if (!string.IsNullOrEmpty(controlTextBox1.Text) && !string.IsNullOrWhiteSpace(controlTextBox1.Text) &&
@@ -648,7 +649,7 @@ namespace Journal
                 !string.IsNullOrEmpty(totalTextBox.Text) && !string.IsNullOrWhiteSpace(totalTextBox.Text))
             {
                 if (marksListBox.SelectedIndex == 0)
-                {                    
+                {
                     OleDbCommand command = new OleDbCommand("UPDATE [math] SET [Control1] = @Control1, [Control2] = @Control2, [Control3] = @Control3, [Control4] = @Control4, [Total] = @Total WHERE [ID] = @ID", sqlConnection);
                     command.Parameters.AddWithValue("Control1", controlTextBox1.Text);
                     command.Parameters.AddWithValue("Control2", controlTextBox2.Text);
@@ -667,7 +668,7 @@ namespace Journal
                     command.Parameters.AddWithValue("Control4", controlTextBox4.Text);
                     command.Parameters.AddWithValue("Total", totalTextBox.Text);
                     command.Parameters.AddWithValue("ID", numbersListBox.SelectedItem);
-                    command.ExecuteNonQuery();                }
+                    command.ExecuteNonQuery(); }
                 else if (marksListBox.SelectedIndex == 2)
                 {
                     OleDbCommand command = new OleDbCommand("UPDATE [rpks] SET [Control1] = @Control1, [Control2] = @Control2, [Control3] = @Control3, [Control4] = @Control4, [Total] = @Total WHERE [ID] = @ID", sqlConnection);
@@ -677,7 +678,7 @@ namespace Journal
                     command.Parameters.AddWithValue("Control4", controlTextBox4.Text);
                     command.Parameters.AddWithValue("Total", totalTextBox.Text);
                     command.Parameters.AddWithValue("ID", numbersListBox.SelectedItem);
-                    command.ExecuteNonQuery();                }
+                    command.ExecuteNonQuery(); }
                 else if (marksListBox.SelectedIndex == 3)
                 {
                     OleDbCommand command = new OleDbCommand("UPDATE [chem] SET [Control1] = @Control1, [Control2] = @Control2, [Control3] = @Control3, [Control4] = @Control4, [Total] = @Total WHERE [ID] = @ID", sqlConnection);
@@ -702,8 +703,8 @@ namespace Journal
                     OleDbCommand command = new OleDbCommand("SELECT * FROM [math] WHERE [ID] = @ID", sqlConnection);
                     command.Parameters.AddWithValue("ID", numbersListBox.SelectedItem);
                     command.ExecuteNonQuery();
-                    sqlReader =  command.ExecuteReader();
-                    while ( sqlReader.Read())
+                    sqlReader = command.ExecuteReader();
+                    while (sqlReader.Read())
                     {
                         marksListBox.Items.Add(Convert.ToString(sqlReader["Control1"]) + " "
                                          + Convert.ToString(sqlReader["Control2"]) + " "
@@ -714,8 +715,8 @@ namespace Journal
                     command = new OleDbCommand("SELECT * FROM [phys] WHERE [ID] = @ID", sqlConnection);
                     command.Parameters.AddWithValue("ID", numbersListBox.SelectedItem);
                     command.ExecuteNonQuery();
-                    sqlReader =  command.ExecuteReader();
-                    while ( sqlReader.Read())
+                    sqlReader = command.ExecuteReader();
+                    while (sqlReader.Read())
                     {
                         marksListBox.Items.Add(Convert.ToString(sqlReader["Control1"]) + " "
                                          + Convert.ToString(sqlReader["Control2"]) + " "
@@ -770,6 +771,63 @@ namespace Journal
                 MessageBox.Show("Все поля должны быть заполнены");
             }
         }
+
+        private void changeInfoButton_Click(object sender, EventArgs e)
+        {
+            string[] str = new string[3];
+            if (!string.IsNullOrEmpty(nameTextBox.Text) && !string.IsNullOrWhiteSpace(nameTextBox.Text) &&
+                !string.IsNullOrEmpty(surnameTextBox.Text) && !string.IsNullOrWhiteSpace(surnameTextBox.Text) &&
+                !string.IsNullOrEmpty(classTextBox.Text) && !string.IsNullOrWhiteSpace(classTextBox.Text))
+            {
+                OleDbCommand command = new OleDbCommand("UPDATE [students] SET [Name] = @Name, [Surname] = @Surname, [Class] = @Class WHERE [ID] = @ID", sqlConnection);
+                command.Parameters.AddWithValue("Name", nameTextBox.Text);
+                command.Parameters.AddWithValue("Surname", surnameTextBox.Text);
+                command.Parameters.AddWithValue("Class", classTextBox.Text);
+                command.Parameters.AddWithValue("ID", numbersListBox.SelectedItem);
+                command.ExecuteNonQuery();
+
+                //обновить информацию об учениках
+                changeInfoButton.Enabled = false;
+                Thread.Sleep(1000);
+                changeInfoButton.Enabled = true;
+                studentsListBox.Items.Clear();
+                sqlConnection = new OleDbConnection(connectionString);
+                sqlConnection.Open();
+                DbDataReader sqlReader = null;
+                try
+                {
+                    command = new OleDbCommand("SELECT * FROM [students]", sqlConnection);
+                    command.Parameters.AddWithValue("ID", numbersListBox.SelectedItem);
+                    command.ExecuteNonQuery();
+                    sqlReader = command.ExecuteReader();
+                    while (sqlReader.Read())
+                    {
+                        studentsListBox.Items.Add(Convert.ToString(sqlReader["Name"]) + " "
+                                         + Convert.ToString(sqlReader["Surname"]) + " "
+                                         + Convert.ToString(sqlReader["Class"]));
+                    }
+                    studentsListBox.SetSelected(0, true);
+                    str = studentsListBox.Items[0].ToString().Split(' ');
+                    nameTextBox.Text = str[0];
+                    surnameTextBox.Text = str[1];
+                    classTextBox.Text = str[2];
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
+                }
+                finally
+                {
+                    if (sqlReader != null)
+                        sqlReader.Close();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Все поля должны быть заполнены");
+            }
+        }
+
 
         public void SetSingle()
         {

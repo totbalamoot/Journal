@@ -56,6 +56,7 @@
             this.physLabel = new System.Windows.Forms.Label();
             this.rpksLabel = new System.Windows.Forms.Label();
             this.databaseLabel = new System.Windows.Forms.Label();
+            this.changeInfoButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // studentsListBox
@@ -173,7 +174,7 @@
             this.changeMarksButton.Name = "changeMarksButton";
             this.changeMarksButton.Size = new System.Drawing.Size(300, 23);
             this.changeMarksButton.TabIndex = 14;
-            this.changeMarksButton.Text = "Изменить";
+            this.changeMarksButton.Text = "Изменить оценки";
             this.changeMarksButton.UseVisualStyleBackColor = true;
             this.changeMarksButton.Click += new System.EventHandler(this.changeMarksButton_Click);
             // 
@@ -306,11 +307,22 @@
             this.databaseLabel.TabIndex = 31;
             this.databaseLabel.Text = "Базы данных";
             // 
+            // changeInfoButton
+            // 
+            this.changeInfoButton.Location = new System.Drawing.Point(320, 173);
+            this.changeInfoButton.Name = "changeInfoButton";
+            this.changeInfoButton.Size = new System.Drawing.Size(345, 23);
+            this.changeInfoButton.TabIndex = 32;
+            this.changeInfoButton.Text = "Изменить информацию об ученике";
+            this.changeInfoButton.UseVisualStyleBackColor = true;
+            this.changeInfoButton.Click += new System.EventHandler(this.changeInfoButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(682, 619);
+            this.Controls.Add(this.changeInfoButton);
             this.Controls.Add(this.databaseLabel);
             this.Controls.Add(this.rpksLabel);
             this.Controls.Add(this.physLabel);
@@ -378,6 +390,7 @@
         private System.Windows.Forms.Label physLabel;
         private System.Windows.Forms.Label rpksLabel;
         private System.Windows.Forms.Label databaseLabel;
+        private System.Windows.Forms.Button changeInfoButton;
     }
 }
 
