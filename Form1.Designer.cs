@@ -57,6 +57,7 @@
             this.rpksLabel = new System.Windows.Forms.Label();
             this.databaseLabel = new System.Windows.Forms.Label();
             this.changeInfoButton = new System.Windows.Forms.Button();
+            this.isAutoSetCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // studentsListBox
@@ -184,6 +185,7 @@
             this.controlTextBox1.Name = "controlTextBox1";
             this.controlTextBox1.Size = new System.Drawing.Size(39, 20);
             this.controlTextBox1.TabIndex = 15;
+            this.controlTextBox1.TextChanged += new System.EventHandler(this.controlTextBox1_TextChanged);
             // 
             // controlTextBox2
             // 
@@ -191,6 +193,7 @@
             this.controlTextBox2.Name = "controlTextBox2";
             this.controlTextBox2.Size = new System.Drawing.Size(39, 20);
             this.controlTextBox2.TabIndex = 16;
+            this.controlTextBox2.TextChanged += new System.EventHandler(this.controlTextBox2_TextChanged);
             // 
             // controlTextBox3
             // 
@@ -198,6 +201,7 @@
             this.controlTextBox3.Name = "controlTextBox3";
             this.controlTextBox3.Size = new System.Drawing.Size(39, 20);
             this.controlTextBox3.TabIndex = 17;
+            this.controlTextBox3.TextChanged += new System.EventHandler(this.controlTextBox3_TextChanged);
             // 
             // controlTextBox4
             // 
@@ -205,6 +209,7 @@
             this.controlTextBox4.Name = "controlTextBox4";
             this.controlTextBox4.Size = new System.Drawing.Size(39, 20);
             this.controlTextBox4.TabIndex = 18;
+            this.controlTextBox4.TextChanged += new System.EventHandler(this.controlTextBox4_TextChanged);
             // 
             // controlLabel1
             // 
@@ -317,11 +322,23 @@
             this.changeInfoButton.UseVisualStyleBackColor = true;
             this.changeInfoButton.Click += new System.EventHandler(this.changeInfoButton_Click);
             // 
+            // isAutoSetCheckBox
+            // 
+            this.isAutoSetCheckBox.AutoSize = true;
+            this.isAutoSetCheckBox.Location = new System.Drawing.Point(365, 515);
+            this.isAutoSetCheckBox.Name = "isAutoSetCheckBox";
+            this.isAutoSetCheckBox.Size = new System.Drawing.Size(205, 17);
+            this.isAutoSetCheckBox.TabIndex = 33;
+            this.isAutoSetCheckBox.Text = "Автовыставление итоговой оценки";
+            this.isAutoSetCheckBox.UseVisualStyleBackColor = true;
+            this.isAutoSetCheckBox.CheckedChanged += new System.EventHandler(this.isAutoSetCheckBox_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(682, 619);
+            this.Controls.Add(this.isAutoSetCheckBox);
             this.Controls.Add(this.changeInfoButton);
             this.Controls.Add(this.databaseLabel);
             this.Controls.Add(this.rpksLabel);
@@ -391,6 +408,7 @@
         private System.Windows.Forms.Label rpksLabel;
         private System.Windows.Forms.Label databaseLabel;
         private System.Windows.Forms.Button changeInfoButton;
+        private System.Windows.Forms.CheckBox isAutoSetCheckBox;
     }
 }
 

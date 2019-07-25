@@ -841,5 +841,98 @@ namespace Journal
             totalTextBox.Clear();
             marksListBox.Items.Clear();
         }
+
+        //функция, проверяющая заполненность поля оценки
+        //если поле заполненно, то инкрементирует счётчик
+        //если нет, то заполняет для удобства нулём
+        public void CheckMarksFilledOrNot(ref TextBox controlTextBox, ref int count)
+        {
+            if (!string.IsNullOrEmpty(controlTextBox.Text) && !string.IsNullOrWhiteSpace(controlTextBox.Text) &&
+                 controlTextBox.Text != "0")
+            {
+               count++;
+            }
+            else
+            {
+                controlTextBox.Text = "0";
+            }
+        }
+
+        public void CalcTotalMark()
+        {
+            int total;
+            int control1;
+            int control2;
+            int control3;
+            int control4;
+
+            int filledCount = 0;
+
+            CheckMarksFilledOrNot(ref controlTextBox1, ref filledCount);
+            CheckMarksFilledOrNot(ref controlTextBox2, ref filledCount);
+            CheckMarksFilledOrNot(ref controlTextBox3, ref filledCount);
+            CheckMarksFilledOrNot(ref controlTextBox4, ref filledCount);
+
+            control1 = Convert.ToInt32(controlTextBox1.Text);
+            control2 = Convert.ToInt32(controlTextBox2.Text);
+            control3 = Convert.ToInt32(controlTextBox3.Text);
+            control4 = Convert.ToInt32(controlTextBox4.Text);
+
+            if (filledCount == 0)
+            {
+                total = 0;
+            }
+            else
+            {                
+                total = (control1 + control2 + control3 + control4) / filledCount;
+            }
+            totalTextBox.Text = total.ToString();
+        }
+
+        private void isAutoSetCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (isAutoSetCheckBox.Checked)
+            {
+                totalTextBox.Enabled = false;
+
+                CalcTotalMark();
+            }
+            else
+            {
+                totalTextBox.Enabled = true;
+            }
+        }
+
+        private void controlTextBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (isAutoSetCheckBox.Checked)
+            {
+                CalcTotalMark();
+            }
+        }
+
+        private void controlTextBox2_TextChanged(object sender, EventArgs e)
+        {
+            if (isAutoSetCheckBox.Checked)
+            {
+                CalcTotalMark();
+            }
+        }
+
+        private void controlTextBox3_TextChanged(object sender, EventArgs e)
+        {
+            if (isAutoSetCheckBox.Checked)
+            {
+                CalcTotalMark();
+            }
+        }
+
+        private void controlTextBox4_TextChanged(object sender, EventArgs e)
+        {
+            if (isAutoSetCheckBox.Checked)
+            {
+                CalcTotalMark();
+            }
+        }
     }   
 }
